@@ -28,6 +28,13 @@ typedef enum {
 	APDS9960_STATUS_CPSAT  = 0b10000000, // Clear data saturation
 } apds9960_status_t;
 
+typedef enum {
+	APDS9960_PROXIMITY_GAIN_1X = 0b00000000, // PGAIN = 00
+	APDS9960_PROXIMITY_GAIN_2X = 0b00000100, // PGAIN = 01
+	APDS9960_PROXIMITY_GAIN_4X = 0b00001000, // PGAIN = 10
+	APDS9960_PROXIMITY_GAIN_8X = 0b00001100, // PGAIN = 11
+} apds9960_proximity_gain_t;
+
 esp_err_t apds9960_i2c_device_init(i2c_master_bus_handle_t bus_handle, i2c_master_dev_handle_t *dev_handle);
 esp_err_t apds9960_check_id(i2c_master_dev_handle_t dev_handle, uint8_t *id);
 
@@ -35,6 +42,7 @@ esp_err_t apds9960_set_enable(i2c_master_dev_handle_t dev_handle, uint8_t enable
 esp_err_t apds9960_set_wait_time(i2c_master_dev_handle_t dev_handle, uint8_t wait_time);
 esp_err_t apds9960_set_ambient_light_integration_time(i2c_master_dev_handle_t dev_handle, uint8_t atime);
 esp_err_t apds9960_set_proximity_threshold(i2c_master_dev_handle_t dev_handle, uint8_t low_int, uint8_t high_int);
+esp_err_t apds9960_set_proximity_gain(i2c_master_dev_handle_t dev_handle, apds9960_proximity_gain_t gain);
 
 esp_err_t apds9960_get_status(i2c_master_dev_handle_t dev_handle, apds9960_status_t status_bit, bool *state);
 esp_err_t apds9960_get_proximity(i2c_master_dev_handle_t dev_handle, uint8_t *proximity);

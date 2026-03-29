@@ -12,6 +12,7 @@ typedef enum {
 	APDS9960_REG_ENABLE = 0x80,
 	APDS9960_REG_ATIME  = 0x81, // ALS integration time
 	APDS9960_REG_WTIME  = 0x83, // Wait time
+	APDS9960_REG_CONTROL = 0x8F, // Gain control
 	APDS9960_REG_PILT   = 0x89, // Proximity interrupt low threshold
 	APDS9960_REG_PIHT   = 0x8B, // Proximity interrupt high threshold
 	APDS9960_REG_ID     = 0x92, // Device ID
@@ -21,6 +22,8 @@ typedef enum {
 	APDS9960_REG_PDATA  = 0x9C, // Proximity data
 	APDS9960_REG_PICLEAR = 0xE5, // Proximity interrupt clear
 } apds9960_reg_t;
+
+#define APDS9960_CONTROL_PGAIN_MASK 0b00001100
 
 
 esp_err_t write_register(i2c_master_dev_handle_t dev_handle, apds9960_reg_t reg, uint8_t val) {
@@ -121,6 +124,29 @@ esp_err_t apds9960_set_proximity_threshold(i2c_master_dev_handle_t dev_handle, u
 	ESP_RETURN_ON_ERROR(
 		write_register(dev_handle, APDS9960_REG_PIHT, high_int),
 		TAG, "Failed to set high threshold"
+	);
+
+	return ret;
+}
+
+esp_err_t apds9960_set_proximity_gain(i2c_master_dev_handle_t dev_handle, apds9960_proximity_gain_t gain) {
+	esp_err_t ret = ESP_OK;
+
+	if (((uint8_t)gain & (uint8_t)~APDS9960_CONTROL_PGAIN_MASK) != 0) {
+		ESP_LOGE(TAG, "Invalid proximity gain value: 0x%02X", (uint8_t)gain);
+		return ESP_ERR_INVALID_ARG;
+	}
+
+	uint8_t control = 0;
+	ESP_RETURN_ON_ERROR(
+		read_register(dev_handle, APDS9960_REG_CONTROL, &control),
+		TAG, "Failed to read CONTROL register"
+	);
+
+	control = (control & (uint8_t)~APDS9960_CONTROL_PGAIN_MASK) | (uint8_t)gain;
+	ESP_RETURN_ON_ERROR(
+		write_register(dev_handle, APDS9960_REG_CONTROL, control),
+		TAG, "Failed to set proximity gain"
 	);
 
 	return ret;
