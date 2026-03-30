@@ -35,7 +35,7 @@ typedef enum {
 	APDS9960_PROXIMITY_GAIN_8X = 0b00001100, // PGAIN = 11
 } apds9960_proximity_gain_t;
 
-esp_err_t apds9960_i2c_device_init(i2c_master_bus_handle_t bus_handle, i2c_master_dev_handle_t *dev_handle);
+esp_err_t apds9960_i2c_device_init(i2c_master_bus_handle_t bus_handle, uint32_t i2c_speed_hz, i2c_master_dev_handle_t *dev_handle);
 esp_err_t apds9960_check_id(i2c_master_dev_handle_t dev_handle, uint8_t *id);
 
 esp_err_t apds9960_set_enable(i2c_master_dev_handle_t dev_handle, uint8_t enable);

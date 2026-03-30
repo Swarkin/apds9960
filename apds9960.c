@@ -42,13 +42,13 @@ esp_err_t read_register(i2c_master_dev_handle_t dev_handle, apds9960_reg_t reg, 
 }
 
 
-esp_err_t apds9960_i2c_device_init(i2c_master_bus_handle_t bus_handle, i2c_master_dev_handle_t *dev_handle) {
+esp_err_t apds9960_i2c_device_init(i2c_master_bus_handle_t bus_handle, uint32_t i2c_speed_hz, i2c_master_dev_handle_t *dev_handle) {
 	esp_err_t ret = ESP_OK;
 
 	i2c_device_config_t dev_cfg = {
 		.dev_addr_length = I2C_ADDR_BIT_LEN_7,
 		.device_address = APDS9960_I2C_ADDR,
-		.scl_speed_hz = 100000,
+		.scl_speed_hz = i2c_speed_hz,
 	};
 
 	ESP_RETURN_ON_ERROR(
