@@ -9,17 +9,17 @@
 static const char *TAG = "APDS9960";
 
 typedef enum {
-	APDS9960_REG_ENABLE = 0x80,
-	APDS9960_REG_ATIME  = 0x81, // ALS integration time
-	APDS9960_REG_WTIME  = 0x83, // Wait time
+	APDS9960_REG_ENABLE  = 0x80,
+	APDS9960_REG_ATIME   = 0x81, // ALS integration time
+	APDS9960_REG_WTIME   = 0x83, // Wait time
 	APDS9960_REG_CONTROL = 0x8F, // Gain control
-	APDS9960_REG_PILT   = 0x89, // Proximity interrupt low threshold
-	APDS9960_REG_PIHT   = 0x8B, // Proximity interrupt high threshold
-	APDS9960_REG_ID     = 0x92, // Device ID
-	APDS9960_REG_STATUS = 0x93, // Device status
-	APDS9960_REG_CDATAL = 0x94, // Clear data low byte
-	APDS9960_REG_CDATAH = 0x95, // Clear data high byte
-	APDS9960_REG_PDATA  = 0x9C, // Proximity data
+	APDS9960_REG_PILT    = 0x89, // Proximity interrupt low threshold
+	APDS9960_REG_PIHT    = 0x8B, // Proximity interrupt high threshold
+	APDS9960_REG_ID      = 0x92, // Device ID
+	APDS9960_REG_STATUS  = 0x93, // Device status
+	APDS9960_REG_CDATAL  = 0x94, // Clear data low byte
+	APDS9960_REG_CDATAH  = 0x95, // Clear data high byte
+	APDS9960_REG_PDATA   = 0x9C, // Proximity data
 	APDS9960_REG_PICLEAR = 0xE5, // Proximity interrupt clear
 } apds9960_reg_t;
 
