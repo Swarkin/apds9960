@@ -7,7 +7,7 @@
 #include "esp_err.h"
 
 typedef enum {
-	APDS9960_ENABLE_PON  = 0b00000001, // Powern on
+	APDS9960_ENABLE_PON  = 0b00000001, // Power on
 	APDS9960_ENABLE_AEN  = 0b00000010, // ALS enable
 	APDS9960_ENABLE_PEN  = 0b00000100, // Proximity detect enable
 	APDS9960_ENABLE_WEN  = 0b00001000, // Wait enable
